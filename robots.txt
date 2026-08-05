@@ -1,0 +1,23 @@
+# Pro Bros Restoration - robots.txt
+# Allow all crawlers to index the site
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /uploads/
+Disallow: /.env
+Disallow: /*.json
+
+# Sitemap
+Sitemap: https://probrosrestoration.com/sitemap.xml
+
+# Crawl delay for responsible crawling
+Crawl-delay: 1
+
+# Specific crawlers
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1

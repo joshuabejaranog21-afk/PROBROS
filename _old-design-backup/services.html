@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Services — Pro Bros Restoration</title>
+<meta name="description" content="Fire, water, mold and pack-out services from Pro Bros Restoration. Serving Dallas–Fort Worth, 24/7." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .page-hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: clamp(60px, 6vw, 100px) 0 clamp(60px, 7vw, 100px);
+    position: relative;
+  }
+  .page-hero h1 {
+    color: var(--paper);
+    font-size: clamp(44px, 6.5vw, 92px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+    max-width: 16ch;
+    font-weight: 400;
+  }
+  .page-hero h1 em {
+    font-style: italic;
+    color: var(--sand);
+  }
+  .page-hero .crumbs {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 28px;
+  }
+  .page-hero .crumbs a { color: var(--sand); opacity: 0.7; }
+  .page-hero .crumbs a:hover { opacity: 1; }
+  .page-hero p {
+    color: var(--body-on-dark);
+    max-width: 60ch;
+    font-size: clamp(17px, 1.3vw, 20px);
+  }
+
+  /* Service anchor cards */
+  .svc-detail {
+    padding: clamp(80px, 8vw, 120px) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .svc-detail:last-of-type { border-bottom: 0; }
+  .svc-detail.alt { background: var(--paper-2); }
+
+  .svc-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  .svc-row.flip { direction: rtl; }
+  .svc-row.flip > * { direction: ltr; }
+  @media (max-width: 880px) {
+    .svc-row { grid-template-columns: 1fr; }
+    .svc-row.flip { direction: ltr; }
+  }
+
+  .svc-detail .num {
+    font-family: var(--serif);
+    font-size: 80px;
+    color: var(--clay);
+    line-height: 0.9;
+    margin-bottom: 24px;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .svc-detail h2 {
+    font-size: clamp(36px, 4vw, 56px);
+    margin-bottom: 20px;
+  }
+  .svc-detail .lede {
+    margin-bottom: 28px;
+  }
+  .svc-detail .ph {
+    aspect-ratio: 4/3;
+    border-radius: var(--radius-lg);
+  }
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+  }
+  @media (max-width: 540px) { .checklist { grid-template-columns: 1fr; } }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .checklist svg {
+    flex-shrink: 0;
+    color: var(--clay);
+    margin-top: 2px;
+  }
+
+  /* Coverage map */
+  .coverage {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(40px, 5vw, 80px);
+    align-items: center;
+  }
+  @media (max-width: 880px) { .coverage { grid-template-columns: 1fr; } }
+  .city-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .chip {
+    padding: 8px 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .chip.primary {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .map-svg {
+    aspect-ratio: 5/4;
+    background: var(--ink);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* FAQ */
+  .faq-list {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    font-family: var(--serif);
+    font-size: clamp(20px, 2vw, 26px);
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary .plus {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    transition: transform 0.25s, background 0.18s;
+    color: var(--clay);
+  }
+  .faq-item[open] summary .plus {
+    transform: rotate(45deg);
+    background: var(--clay);
+    color: var(--paper);
+    border-color: var(--clay);
+  }
+  .faq-item .answer {
+    padding: 0 0 28px;
+    max-width: 70ch;
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* Section heads (reused pattern) */
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: end;
+  }
+  @media (max-width: 880px) { .section-head { grid-template-columns: 1fr; } }
+  .section-head .head-right {
+    text-align: right;
+    color: var(--ink-soft);
+    max-width: 42ch;
+    margin-left: auto;
+    font-size: 16px;
+  }
+  .on-dark .section-head .head-right { color: var(--body-on-dark); }
+  @media (max-width: 880px) {
+    .section-head .head-right { text-align: left; margin-left: 0; }
+  }
+
+  .section-eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .section-eyebrow-row .line {
+    flex: 1; height: 1px; background: var(--line);
+  }
+</style>
+</head>
+<body>
+
+<!-- Topbar -->
+<div class="topbar">
+  <div class="container">
+    <div class="pulse"><span class="dot"></span><span>24/7 Emergency Response</span></div>
+    <div class="topbar-right">
+      <span class="meta">IICRC Certified · Fully Insured</span>
+      <a href="tel:+14695855519">(469) 585-5519</a>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">PB</span>
+      <span class="logo-text">Pro Bros<small>Restoration · DFW</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-cta-group">
+      <a href="tel:+14695855519" class="btn btn-primary btn-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Get Help Now
+      </a>
+      <button class="hamburger" data-nav-toggle aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Page hero -->
+<header class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; Services</div>
+    <h1>Everything we do, <em>under one roof.</em></h1>
+    <p>Four core services, one crew, one number to call. Whether it's a slab leak at 3 a.m. or a full kitchen rebuild after a fire — we handle every step ourselves, so nothing falls between the cracks.</p>
+  </div>
+</header>
+
+<!-- Water -->
+<section class="svc-detail" id="water">
+  <div class="container">
+    <div class="svc-row reveal">
+      <div>
+        <div class="num">01</div>
+        <span class="eyebrow">Service 01</span>
+        <h2>Water damage restoration</h2>
+        <p class="lede">From a slow pipe drip to a foot of standing water — we extract, dry, and document so insurance can't dispute scope.</p>
+        <ul class="checklist">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Emergency water extraction</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Structural drying &amp; dehumidification</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Moisture mapping with calibrated meters</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Antimicrobial treatment</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Sub-floor &amp; drywall replacement</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Direct insurance billing</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary">Request a free assessment
+          <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="ph"><span class="ph-label">[ water extraction job · field photo ]</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Fire -->
+<section class="svc-detail alt" id="fire">
+  <div class="container">
+    <div class="svc-row flip reveal">
+      <div>
+        <div class="num">02</div>
+        <span class="eyebrow">Service 02</span>
+        <h2>Fire &amp; smoke damage</h2>
+        <p class="lede">Soot doesn't just sit on surfaces — it migrates, embeds, and lingers. We treat the structure, the air, and the contents.</p>
+        <ul class="checklist">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Board-up &amp; site stabilization</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Soot &amp; ash removal</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Thermal &amp; ozone deodorization</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Content cleaning &amp; restoration</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>HVAC duct decontamination</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Full structural rebuild</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary">Request a free assessment
+          <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="ph"><span class="ph-label">[ post-fire interior · restoration in progress ]</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Mold -->
+<section class="svc-detail" id="mold">
+  <div class="container">
+    <div class="svc-row reveal">
+      <div>
+        <div class="num">03</div>
+        <span class="eyebrow">Service 03</span>
+        <h2>Mold remediation</h2>
+        <p class="lede">We follow IICRC S520 protocols — containment, negative air, HEPA filtration. No half-measures, no surface-cleaning shortcuts.</p>
+        <ul class="checklist">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Air-quality testing</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Containment &amp; negative-pressure</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>HEPA scrubbing &amp; vacuuming</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Antimicrobial application</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Source-water identification</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Post-remediation verification</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary">Request a free assessment
+          <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="ph"><span class="ph-label">[ remediation containment setup ]</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Packout -->
+<section class="svc-detail alt" id="packout">
+  <div class="container">
+    <div class="svc-row flip reveal">
+      <div>
+        <div class="num">04</div>
+        <span class="eyebrow">Service 04</span>
+        <h2>Pack-out &amp; storage</h2>
+        <p class="lede">When the structure needs to come apart, your belongings deserve more than a tarp in the garage. We inventory, wrap, and store everything off-site.</p>
+        <ul class="checklist">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Itemized inventory with photos</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Professional wrap &amp; crate</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Climate-controlled storage</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Soft-content cleaning</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>Electronics &amp; document recovery</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>White-glove pack-back</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary">Request a free assessment
+          <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="ph"><span class="ph-label">[ pack-out crew · labeled crates ]</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Service area -->
+<section class="section-dark">
+  <div class="container">
+    <div class="coverage reveal">
+      <div>
+        <span class="eyebrow on-dark">Service area</span>
+        <h2 class="h1" style="color:var(--paper);margin-top:16px;margin-bottom:20px;">Across the <em style="color:var(--sand);font-style:italic">DFW metroplex.</em></h2>
+        <p style="color: var(--body-on-dark); margin-bottom: 8px;">From Denton to Waxahachie, Fort Worth to Rockwall — we maintain crews and equipment cached across the region so we can be on-site within 30 minutes.</p>
+        <div class="city-chips">
+          <span class="chip primary">Dallas</span>
+          <span class="chip primary">Fort Worth</span>
+          <span class="chip">Plano</span>
+          <span class="chip">Frisco</span>
+          <span class="chip">Arlington</span>
+          <span class="chip">Irving</span>
+          <span class="chip">Garland</span>
+          <span class="chip">McKinney</span>
+          <span class="chip">Mesquite</span>
+          <span class="chip">Richardson</span>
+          <span class="chip">Allen</span>
+          <span class="chip">Carrollton</span>
+          <span class="chip">+ more</span>
+        </div>
+      </div>
+      <div class="map-svg">
+        <svg viewBox="0 0 500 400" width="100%" height="100%" style="position:absolute;inset:32px;width:calc(100% - 64px);height:calc(100% - 64px);">
+          <!-- abstract metro grid -->
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M40 0 L0 0 0 40" fill="none" stroke="rgba(246,239,229,0.08)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="500" height="400" fill="url(#grid)"/>
+          <!-- abstract roads -->
+          <path d="M0 200 L500 200 M250 0 L250 400 M0 80 Q250 80 500 200 M500 320 Q250 320 0 200" stroke="rgba(217,201,173,0.18)" stroke-width="1.5" fill="none"/>
+          <!-- region blob -->
+          <path d="M120 130 Q180 100 260 110 Q340 100 380 150 Q420 200 380 270 Q330 310 240 300 Q160 310 120 250 Q90 200 120 130 Z" fill="rgba(185,92,46,0.12)" stroke="var(--clay)" stroke-width="2" stroke-dasharray="6 6"/>
+          <!-- city pins -->
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="rgba(246,239,229,0.7)" letter-spacing="1.4px">
+            <g><circle cx="250" cy="200" r="5" fill="#b95c2e"/><circle cx="250" cy="200" r="11" fill="none" stroke="#b95c2e" stroke-width="1.5" opacity="0.5"/><text x="260" y="195" fill="#f6efe5" font-size="11">DALLAS</text></g>
+            <g><circle cx="160" cy="200" r="5" fill="#b95c2e"/><text x="170" y="195" fill="#f6efe5" font-size="11">FT WORTH</text></g>
+            <g><circle cx="260" cy="140" r="3.5" fill="#d9c9ad"/><text x="270" y="143">PLANO</text></g>
+            <g><circle cx="290" cy="120" r="3.5" fill="#d9c9ad"/><text x="298" y="123">FRISCO</text></g>
+            <g><circle cx="200" cy="230" r="3.5" fill="#d9c9ad"/><text x="170" y="252">ARLINGTON</text></g>
+            <g><circle cx="220" cy="195" r="3.5" fill="#d9c9ad"/><text x="195" y="180">IRVING</text></g>
+            <g><circle cx="295" cy="195" r="3.5" fill="#d9c9ad"/><text x="305" y="200">GARLAND</text></g>
+            <g><circle cx="310" cy="105" r="3.5" fill="#d9c9ad"/><text x="318" y="108">MCKINNEY</text></g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-paper-2">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-eyebrow-row"><span class="eyebrow">Common questions</span></div>
+        <h2 class="h1">Things people <em class="accent">ask first.</em></h2>
+      </div>
+      <p class="head-right">If you don't see your question here, call us. We won't put you through a phone tree.</p>
+    </div>
+
+    <div class="faq-list reveal">
+      <details class="faq-item" open>
+        <summary>Do you work directly with my insurance?
+          <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="answer">Yes — we bill insurance directly for most carriers and provide the documentation adjusters need (moisture logs, drying records, line-item estimates). If you're not sure where to start, we'll help you file the claim.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How fast can someone be on site?
+          <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="answer">Our DFW average is 30 minutes for emergencies. We keep crews and equipment cached across the metro so we can dispatch from whichever location is closest.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What does a free assessment include?
+          <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="answer">A walk-through with one of our technicians, full photo documentation, moisture readings where relevant, a written scope of work, and an itemized estimate. No obligation, no pressure.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Are you licensed and certified?
+          <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="answer">Yes. We're IICRC certified across water, fire, and applied microbial remediation. Fully insured, Texas-licensed mold remediation contractor.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you handle the rebuild, or just the cleanup?
+          <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="answer">Both. We start at mitigation and stay through final paint and trim — drywall, flooring, cabinetry, the works. One crew, one contract, one walk-through at the end.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Big CTA -->
+<section class="section-paper">
+  <div class="container">
+    <div class="big-cta reveal" style="background: var(--clay); color: var(--paper-2); border-radius: var(--radius-lg); padding: clamp(48px,6vw,80px); display: grid; grid-template-columns: 1.4fr auto; gap: 40px; align-items: center;">
+      <div>
+        <h2 style="color: var(--paper-2);">Need help today?</h2>
+        <p style="color: rgba(255,255,255,0.85); margin-top: 12px; font-size: 17px;">Free on-site assessment. We bring the equipment. You bring the questions.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="tel:+14695855519" class="btn btn-ink btn-lg">Call (469) 585-5519</a>
+        <a href="contact.html" class="btn btn-ghost-light btn-lg" style="border-color:rgba(255,255,255,0.5);color:#fff;">Send a message</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-tag">From <em style="font-style:italic;color:var(--sand)">chaos</em><br/>to comfort.</div>
+        <div class="logo" style="color:var(--paper);">
+          <span class="logo-mark" style="background:var(--paper);color:var(--ink);">PB</span>
+          <span class="logo-text" style="color:var(--paper);">Pro Bros<small style="color:var(--sand);">Restoration · DFW</small></span>
+        </div>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#water">Water damage</a></li>
+          <li><a href="services.html#fire">Fire &amp; smoke</a></li>
+          <li><a href="services.html#mold">Mold remediation</a></li>
+          <li><a href="services.html#packout">Pack-out &amp; storage</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Reach us</h4>
+        <ul>
+          <li><a href="tel:+14695855519">(469) 585-5519</a></li>
+          <li><a href="mailto:hello@probrosrestoration.com">hello@probrosrestoration.com</a></li>
+          <li>Mon–Fri, 9a–5p<br/><span style="color:var(--sand)">24/7 for emergencies</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Pro Bros Restoration · All rights reserved</span>
+      <span>IICRC #PB-2016 · TX Reg. 4892</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

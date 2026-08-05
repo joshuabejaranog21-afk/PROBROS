@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact — Pro Bros Restoration</title>
+<meta name="description" content="Get in touch with Pro Bros Restoration. 24/7 emergency response across Dallas–Fort Worth." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .page-hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: clamp(60px, 6vw, 100px) 0 clamp(60px, 7vw, 100px);
+  }
+  .page-hero h1 {
+    color: var(--paper);
+    font-size: clamp(44px, 6.5vw, 92px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+    max-width: 18ch;
+    font-weight: 400;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--sand); }
+  .page-hero .crumbs {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 28px;
+  }
+  .page-hero .crumbs a { color: var(--sand); opacity: 0.7; }
+  .page-hero p { color: var(--body-on-dark); max-width: 60ch; font-size: clamp(17px, 1.3vw, 20px); }
+
+  /* Emergency banner */
+  .emergency-bar {
+    background: var(--clay);
+    color: var(--paper-2);
+    padding: 24px 0;
+  }
+  .emergency-bar .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .emergency-bar h3 {
+    color: var(--paper-2);
+    font-size: clamp(20px, 2vw, 28px);
+    line-height: 1.2;
+    font-weight: 400;
+  }
+  .emergency-bar .phone {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.4vw, 44px);
+    color: var(--paper-2);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  /* Main contact grid */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(40px, 5vw, 80px);
+    padding: clamp(72px, 8vw, 120px) 0;
+  }
+  @media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  /* Form */
+  .form-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: clamp(32px, 4vw, 56px);
+  }
+  .form-card h2 {
+    font-size: clamp(28px, 3vw, 40px);
+    margin-bottom: 8px;
+  }
+  .form-card .sub {
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    font-size: 16px;
+  }
+  .form-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .form-grid .full { grid-column: 1 / -1; }
+
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .field input,
+  .field textarea,
+  .field select {
+    font-family: var(--sans);
+    font-size: 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--paper-2);
+    color: var(--ink);
+    transition: border-color 0.15s, background 0.15s;
+    width: 100%;
+  }
+  .field textarea { resize: vertical; min-height: 120px; }
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--clay);
+    background: var(--surface);
+  }
+
+  .radio-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .radio-row label {
+    flex: 1; min-width: 100px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--paper-2);
+    text-align: center;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--ink);
+    letter-spacing: 0;
+    text-transform: none;
+    transition: all 0.15s;
+  }
+  .radio-row input { display: none; }
+  .radio-row input:checked + label,
+  .radio-row label:has(input:checked) {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .form-status {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    min-height: 0;
+  }
+  .form-status:empty { display: none; }
+  .form-status[data-tone="ok"] {
+    background: rgba(74,107,89,0.12);
+    color: #2d5a47;
+    border: 1px solid rgba(74,107,89,0.3);
+  }
+  .form-status[data-tone="warn"] {
+    background: rgba(185,92,46,0.12);
+    color: var(--clay-dark);
+    border: 1px solid rgba(185,92,46,0.3);
+  }
+
+  /* Side info */
+  .info-stack { display: flex; flex-direction: column; gap: 28px; }
+  .info-card {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .info-card h3 {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+  .info-card .lbl {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 14px;
+  }
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .info-row:last-child { border-bottom: 0; }
+  .info-row svg { flex-shrink: 0; color: var(--clay); margin-top: 2px; }
+  .info-row a:hover { color: var(--clay); }
+
+  .hours-table {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 16px;
+    font-size: 14px;
+  }
+  .hours-table .day {
+    font-family: var(--mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-size: 11px;
+  }
+  .hours-table .val { color: var(--ink); font-weight: 500; }
+  .hours-table .val.closed { color: var(--ink-soft); font-style: italic; }
+  .hours-table .val.always { color: var(--clay); font-weight: 600; }
+
+  /* Map */
+  .map-block {
+    margin-top: 0;
+    background: var(--ink);
+    padding: clamp(60px, 7vw, 100px) 0;
+    color: var(--paper);
+  }
+  .map-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(40px, 5vw, 80px);
+    align-items: center;
+  }
+  @media (max-width: 880px) { .map-grid { grid-template-columns: 1fr; } }
+  .map-art {
+    aspect-ratio: 4/3;
+    background: var(--ink-2);
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line-on-dark);
+  }
+</style>
+</head>
+<body>
+
+<!-- Topbar -->
+<div class="topbar">
+  <div class="container">
+    <div class="pulse"><span class="dot"></span><span>24/7 Emergency Response</span></div>
+    <div class="topbar-right">
+      <span class="meta">IICRC Certified · Fully Insured</span>
+      <a href="tel:+14695855519">(469) 585-5519</a>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">PB</span>
+      <span class="logo-text">Pro Bros<small>Restoration · DFW</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+    <div class="nav-cta-group">
+      <a href="tel:+14695855519" class="btn btn-primary btn-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Get Help Now
+      </a>
+      <button class="hamburger" data-nav-toggle aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Page hero -->
+<header class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; Contact</div>
+    <h1>Got <em>a problem?</em><br/>Let's get to work.</h1>
+    <p>Active emergency? Call us — a human picks up, 24 hours a day. For estimates, scheduling, or a quick question, the form below works too.</p>
+  </div>
+</header>
+
+<!-- Emergency bar -->
+<div class="emergency-bar">
+  <div class="container">
+    <div class="row">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(--paper-2);animation:pulse 1.6s ease-out infinite;"></span>
+        <h3>Active emergency?</h3>
+      </div>
+      <a href="tel:+14695855519" class="phone">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (469) 585-5519
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Main contact grid -->
+<section class="section-paper">
+  <div class="container">
+    <div class="contact-grid">
+      <!-- FORM -->
+      <div class="form-card reveal">
+        <h2>Drop us a line.</h2>
+        <p class="sub">We respond to every form submission within 30 minutes during business hours.</p>
+
+        <form class="form-grid" data-contact-form novalidate>
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" placeholder="(214) 555-0100" />
+          </div>
+          <div class="field full">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="jane@example.com" required />
+          </div>
+          <div class="field full">
+            <label>What kind of damage?</label>
+            <div class="radio-row">
+              <label><input type="radio" name="type" value="water" checked />Water</label>
+              <label><input type="radio" name="type" value="fire" />Fire / smoke</label>
+              <label><input type="radio" name="type" value="mold" />Mold</label>
+              <label><input type="radio" name="type" value="storm" />Storm</label>
+              <label><input type="radio" name="type" value="other" />Other</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="urgency">How urgent?</label>
+            <select id="urgency" name="urgency">
+              <option>Active emergency — call me now</option>
+              <option selected>Today or tomorrow</option>
+              <option>This week</option>
+              <option>Just gathering quotes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="city">City</label>
+            <input id="city" name="city" type="text" placeholder="Plano, TX" />
+          </div>
+          <div class="field full">
+            <label for="message">What happened?</label>
+            <textarea id="message" name="message" placeholder="A few sentences about what's going on — square footage, when it started, anything we should know."></textarea>
+          </div>
+          <div class="field full" style="flex-direction: row; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <button type="submit" class="btn btn-primary btn-lg">Send message
+              <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <span style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft);">or call · (469) 585-5519</span>
+          </div>
+          <div class="form-status full" data-form-status></div>
+        </form>
+      </div>
+
+      <!-- INFO -->
+      <aside class="info-stack reveal">
+        <div class="info-card">
+          <div class="lbl">By phone</div>
+          <h3>Call us anytime.</h3>
+          <div class="info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            <a href="tel:+14695855519" style="font-family:var(--serif);font-size:22px;color:var(--ink);">(469) 585-5519</a>
+          </div>
+          <div class="info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:hello@probrosrestoration.com">hello@probrosrestoration.com</a>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="lbl">Hours</div>
+          <h3>When we're open.</h3>
+          <div class="hours-table" style="margin-top: 16px;">
+            <span class="day">Mon</span><span class="val">9:00a — 5:00p</span>
+            <span class="day">Tue</span><span class="val">9:00a — 5:00p</span>
+            <span class="day">Wed</span><span class="val">9:00a — 5:00p</span>
+            <span class="day">Thu</span><span class="val">9:00a — 5:00p</span>
+            <span class="day">Fri</span><span class="val">9:00a — 5:00p</span>
+            <span class="day">Sat</span><span class="val closed">Closed</span>
+            <span class="day">Sun</span><span class="val closed">Closed</span>
+            <span class="day" style="grid-column: 1 / -1; padding-top: 12px; border-top: 1px solid var(--line); margin-top: 8px; display: flex; justify-content: space-between;">
+              <span>Emergencies</span>
+              <span class="val always" style="font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:13px;">24 / 7 · 365</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="info-card" style="background: var(--ink); color: var(--paper); border-color: var(--ink);">
+          <div class="lbl" style="color: var(--sand);">In a pinch</div>
+          <h3 style="color: var(--paper);">First 5 minutes after a leak.</h3>
+          <ol style="padding-left: 18px; color: var(--body-on-dark); font-size: 14px; line-height: 1.6; margin: 14px 0 0;">
+            <li>Shut off the water main if you can.</li>
+            <li>Cut power to the affected room from the breaker.</li>
+            <li>Lift fabric and paper off the floor.</li>
+            <li>Take photos of everything, then call us.</li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- Map section -->
+<section class="map-block">
+  <div class="container">
+    <div class="map-grid">
+      <div>
+        <span class="eyebrow on-dark">Find us</span>
+        <h2 class="h1" style="color: var(--paper); margin-top: 16px; margin-bottom: 20px;">Better yet, <em style="color:var(--sand);font-style:italic">come say hi.</em></h2>
+        <p style="color: var(--body-on-dark); margin-bottom: 20px;">We're not a big office — but you're welcome to stop by during business hours. Coffee's always on, and someone can usually walk you through your project right there.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:flex-start;gap:12px;color:var(--paper);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--sand);margin-top:2px;flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>1820 Restoration Way<br/>Mesquite, TX 75150</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px;color:var(--paper);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--sand);margin-top:2px;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+            <span>Mon–Fri · 9a–5p<br/><span style="color:var(--sand)">Emergency line · 24/7</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="map-art">
+        <svg viewBox="0 0 500 380" width="100%" height="100%" style="position:absolute;inset:0;">
+          <defs>
+            <pattern id="gridc" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M40 0 L0 0 0 40" fill="none" stroke="rgba(246,239,229,0.08)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="500" height="380" fill="url(#gridc)"/>
+          <!-- streets -->
+          <path d="M0 200 L500 200 M250 0 L250 380 M120 0 L120 380 M380 0 L380 380 M0 120 L500 120 M0 290 L500 290" stroke="rgba(217,201,173,0.18)" stroke-width="1.2" fill="none"/>
+          <!-- one highlighted route -->
+          <path d="M120 290 L250 290 L250 200 L380 200" stroke="var(--clay)" stroke-width="2.5" fill="none" stroke-dasharray="6 6"/>
+          <!-- pin -->
+          <g transform="translate(250, 200)">
+            <circle r="22" fill="none" stroke="rgba(185,92,46,0.4)" stroke-width="1.5"/>
+            <circle r="32" fill="none" stroke="rgba(185,92,46,0.25)" stroke-width="1.5"/>
+            <circle r="9" fill="var(--clay)"/>
+            <circle r="3" fill="var(--paper-2)"/>
+          </g>
+          <text x="270" y="195" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--paper)" letter-spacing="1.5">PRO BROS HQ</text>
+          <text x="270" y="210" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--sand)" letter-spacing="1.4">MESQUITE, TX</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-tag">From <em style="font-style:italic;color:var(--sand)">chaos</em><br/>to comfort.</div>
+        <div class="logo" style="color:var(--paper);">
+          <span class="logo-mark" style="background:var(--paper);color:var(--ink);">PB</span>
+          <span class="logo-text" style="color:var(--paper);">Pro Bros<small style="color:var(--sand);">Restoration · DFW</small></span>
+        </div>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#water">Water damage</a></li>
+          <li><a href="services.html#fire">Fire &amp; smoke</a></li>
+          <li><a href="services.html#mold">Mold remediation</a></li>
+          <li><a href="services.html#packout">Pack-out &amp; storage</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Reach us</h4>
+        <ul>
+          <li><a href="tel:+14695855519">(469) 585-5519</a></li>
+          <li><a href="mailto:hello@probrosrestoration.com">hello@probrosrestoration.com</a></li>
+          <li>Mon–Fri, 9a–5p<br/><span style="color:var(--sand)">24/7 for emergencies</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Pro Bros Restoration · All rights reserved</span>
+      <span>IICRC #PB-2016 · TX Reg. 4892</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

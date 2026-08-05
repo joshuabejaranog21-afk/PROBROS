@@ -1,0 +1,32 @@
+# Maven
+target/
+.m2/
+.mvn/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+
+# Spring Boot
+application-*.yml
+application-*.properties
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+*.class
+*.jar
+*.war
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local

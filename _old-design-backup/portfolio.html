@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Portfolio — Pro Bros Restoration</title>
+<meta name="description" content="A gallery of recent fire, water, and mold restoration projects across Dallas–Fort Worth." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .page-hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: clamp(60px, 6vw, 100px) 0 clamp(60px, 7vw, 100px);
+  }
+  .page-hero h1 {
+    color: var(--paper);
+    font-size: clamp(44px, 6.5vw, 92px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+    max-width: 16ch;
+    font-weight: 400;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--sand); }
+  .page-hero .crumbs {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 28px;
+  }
+  .page-hero .crumbs a { color: var(--sand); opacity: 0.7; }
+  .page-hero p { color: var(--body-on-dark); max-width: 60ch; font-size: clamp(17px, 1.3vw, 20px); }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line-on-dark);
+    margin-top: clamp(40px, 5vw, 72px);
+  }
+  @media (max-width: 720px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+  .stat {
+    padding: 32px 24px 32px 0;
+    border-right: 1px solid var(--line-on-dark);
+  }
+  .stat:last-child { border-right: 0; padding-right: 0; }
+  .stat:nth-child(4n) { border-right: 0; }
+  @media (max-width: 720px) {
+    .stat:nth-child(2n) { border-right: 0; padding-right: 0; }
+    .stat:nth-child(odd) { padding-right: 24px; }
+  }
+  .stat .num {
+    font-family: var(--serif);
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1;
+    color: var(--paper);
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .stat .num small { font-size: 0.4em; color: var(--sand); margin-left: 4px; }
+  .stat .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--body-on-dark);
+  }
+
+  /* Filter bar */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 56px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .filter-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .filter-btn {
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .filter-btn:hover { background: var(--paper-2); }
+  .filter-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .filter-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* Project grid */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+  .project-card {
+    cursor: pointer;
+    transition: transform 0.22s;
+  }
+  .project-card:hover { transform: translateY(-3px); }
+  .project-card .frame {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+  }
+  .project-card .ph {
+    position: absolute; inset: 0;
+    border-radius: 0;
+  }
+  .project-card .badge {
+    position: absolute;
+    top: 14px; left: 14px;
+    padding: 5px 10px;
+    background: rgba(21, 41, 62, 0.86);
+    color: var(--paper);
+    backdrop-filter: blur(6px);
+    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .project-card .badge.fire { background: rgba(185,92,46,0.88); }
+  .project-card .badge.mold { background: rgba(74,107,89,0.88); }
+  .project-card .info {
+    padding: 18px 4px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .project-card h3 {
+    font-size: 19px;
+    color: var(--ink);
+    margin: 0 0 4px;
+  }
+  .project-card .meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .project-card .duration {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--clay);
+    white-space: nowrap;
+  }
+
+  /* layout variants */
+  .c-12 { grid-column: span 12; }
+  .c-8 { grid-column: span 8; }
+  .c-6 { grid-column: span 6; }
+  .c-4 { grid-column: span 4; }
+  .c-3 { grid-column: span 3; }
+  @media (max-width: 980px) {
+    .c-8, .c-6 { grid-column: span 12; }
+    .c-4 { grid-column: span 6; }
+    .c-3 { grid-column: span 6; }
+  }
+  @media (max-width: 560px) {
+    .c-4, .c-3 { grid-column: span 12; }
+  }
+  .project-card.feature .frame { aspect-ratio: 16 / 9; }
+
+  /* before/after slider on featured */
+  .ba {
+    position: relative;
+    aspect-ratio: 16/9;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: ew-resize;
+    user-select: none;
+  }
+  .ba .ph { position: absolute; inset: 0; border-radius: 0; }
+  .ba .ba-after { background: var(--sand-soft); clip-path: inset(0 50% 0 0); }
+  .ba .ba-handle {
+    position: absolute;
+    top: 0; bottom: 0; left: 50%;
+    width: 3px;
+    background: var(--paper-2);
+    transform: translateX(-50%);
+  }
+  .ba .ba-handle::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--paper-2);
+    border: 2px solid var(--ink);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  }
+  .ba .ba-handle::before {
+    content: '⇆';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--ink);
+    font-size: 18px;
+    z-index: 2;
+  }
+
+  /* Featured case study */
+  .case-study {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: clamp(40px, 5vw, 72px);
+    align-items: center;
+  }
+  @media (max-width: 980px) { .case-study { grid-template-columns: 1fr; } }
+  .case-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .case-meta-grid > div {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .case-meta-grid > div:nth-child(odd) {
+    border-right: 1px solid var(--line);
+    padding-right: 20px;
+  }
+  .case-meta-grid > div:nth-child(even) {
+    padding-left: 20px;
+  }
+  .case-meta-grid .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .case-meta-grid .val {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--ink);
+  }
+</style>
+</head>
+<body>
+
+<!-- Topbar -->
+<div class="topbar">
+  <div class="container">
+    <div class="pulse"><span class="dot"></span><span>24/7 Emergency Response</span></div>
+    <div class="topbar-right">
+      <span class="meta">IICRC Certified · Fully Insured</span>
+      <a href="tel:+14695855519">(469) 585-5519</a>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">PB</span>
+      <span class="logo-text">Pro Bros<small>Restoration · DFW</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-cta-group">
+      <a href="tel:+14695855519" class="btn btn-primary btn-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Get Help Now
+      </a>
+      <button class="hamburger" data-nav-toggle aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Page hero -->
+<header class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; Portfolio</div>
+    <h1>Recent <em>restorations,</em><br/>told honestly.</h1>
+    <p>A small sample of the homes and businesses we've returned to their owners over the past few years. Every project below was photographed by us, on the job — no stock, no staging.</p>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="num">1,400<small>+</small></div>
+        <div class="label">Properties restored</div>
+      </div>
+      <div class="stat">
+        <div class="num">9<small>yrs</small></div>
+        <div class="label">In the DFW community</div>
+      </div>
+      <div class="stat">
+        <div class="num">30<small>min</small></div>
+        <div class="label">Avg. arrival time</div>
+      </div>
+      <div class="stat">
+        <div class="num">4.9<small>/5</small></div>
+        <div class="label">Across 280+ reviews</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Featured case study -->
+<section class="section-paper-2">
+  <div class="container">
+    <div class="section-eyebrow-row" style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+      <span class="eyebrow">Featured project</span>
+      <span class="line" style="flex:1;height:1px;background:var(--line);"></span>
+      <span class="eyebrow" style="color:var(--ink-soft)">Plano, TX · 2025</span>
+    </div>
+
+    <div class="case-study reveal">
+      <div class="ba" data-ba>
+        <div class="ba-before ph">
+          <span class="ph-label">[ before · plano kitchen fire ]</span>
+        </div>
+        <div class="ba-after ph">
+          <span class="ph-label">[ after · restored kitchen ]</span>
+        </div>
+        <div class="ba-handle"></div>
+        <div style="position:absolute;top:18px;left:18px;color:var(--paper-2);background:rgba(21,41,62,0.7);padding:6px 12px;border-radius:6px;font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;">Before</div>
+        <div style="position:absolute;top:18px;right:18px;color:var(--paper-2);background:rgba(185,92,46,0.85);padding:6px 12px;border-radius:6px;font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;">After</div>
+      </div>
+      <div>
+        <h2 class="h2" style="margin-bottom: 16px;">Grease fire,<br/><em class="accent">full kitchen rebuild.</em></h2>
+        <p style="color: var(--ink-soft);">A late-night grease fire spread through the upper cabinets and into the soffit. Heavy smoke and soot through 2,400 sq ft of living space. We boarded up that night, started content pack-out the next morning, and handed the keys back nine days later.</p>
+        <div class="case-meta-grid">
+          <div>
+            <div class="lbl">Type</div>
+            <div class="val">Fire &amp; smoke</div>
+          </div>
+          <div>
+            <div class="lbl">Duration</div>
+            <div class="val">9 days</div>
+          </div>
+          <div>
+            <div class="lbl">Sq ft</div>
+            <div class="val">2,400</div>
+          </div>
+          <div>
+            <div class="lbl">Insurance</div>
+            <div class="val">Direct billed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Project gallery -->
+<section class="section-paper">
+  <div class="container">
+    <div class="section-eyebrow-row" style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+      <span class="eyebrow">All projects</span>
+      <span class="line" style="flex:1;height:1px;background:var(--line);"></span>
+    </div>
+
+    <div class="filter-bar" data-filter-group>
+      <div class="filter-group">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="water">Water</button>
+        <button class="filter-btn" data-filter="fire">Fire &amp; smoke</button>
+        <button class="filter-btn" data-filter="mold">Mold</button>
+        <button class="filter-btn" data-filter="storm">Storm</button>
+        <button class="filter-btn" data-filter="commercial">Commercial</button>
+      </div>
+      <span class="filter-meta">12 projects shown</span>
+    </div>
+
+    <div class="project-grid">
+      <div class="project-card c-8 feature" data-tag="water">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ frisco basement flood ]</span></div>
+          <span class="badge">Water</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>Frisco basement flood</h3>
+            <div class="meta">Frisco · 2,100 sq ft · Slab leak</div>
+          </div>
+          <span class="duration">12 days</span>
+        </div>
+      </div>
+
+      <div class="project-card c-4" data-tag="fire">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ arlington smoke damage ]</span></div>
+          <span class="badge fire">Fire</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>Arlington smoke remediation</h3>
+            <div class="meta">Arlington · Single-story</div>
+          </div>
+          <span class="duration">6 days</span>
+        </div>
+      </div>
+
+      <div class="project-card c-4" data-tag="mold">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ irving crawlspace mold ]</span></div>
+          <span class="badge mold">Mold</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>Irving crawlspace remediation</h3>
+            <div class="meta">Irving · 1,800 sq ft</div>
+          </div>
+          <span class="duration">5 days</span>
+        </div>
+      </div>
+
+      <div class="project-card c-4" data-tag="storm water">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ garland storm roof ]</span></div>
+          <span class="badge">Storm</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>Garland storm damage</h3>
+            <div class="meta">Garland · Roof + interior</div>
+          </div>
+          <span class="duration">14 days</span>
+        </div>
+      </div>
+
+      <div class="project-card c-4" data-tag="water">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ mckinney pipe burst ]</span></div>
+          <span class="badge">Water</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>McKinney pipe burst</h3>
+            <div class="meta">McKinney · Upstairs leak</div>
+          </div>
+          <span class="duration">8 days</span>
+        </div>
+      </div>
+
+      <div class="project-card c-6" data-tag="commercial fire">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ dallas office fire ]</span></div>
+          <span class="badge fire">Fire · Commercial</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>Dallas office complex</h3>
+            <div class="meta">Dallas · 8,400 sq ft commercial</div>
+          </div>
+          <span class="duration">21 days</span>
+        </div>
+      </div>
+
+      <div class="project-card c-6" data-tag="water">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ plano slab leak ]</span></div>
+          <span class="badge">Water</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>Plano slab leak</h3>
+            <div class="meta">Plano · 3,200 sq ft</div>
+          </div>
+          <span class="duration">10 days</span>
+        </div>
+      </div>
+
+      <div class="project-card c-3" data-tag="mold water">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ richardson bathroom ]</span></div>
+          <span class="badge mold">Mold</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>Richardson bath remediation</h3>
+            <div class="meta">Richardson · Single bath</div>
+          </div>
+          <span class="duration">3 days</span>
+        </div>
+      </div>
+
+      <div class="project-card c-3" data-tag="fire">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ allen attic fire ]</span></div>
+          <span class="badge fire">Fire</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>Allen attic fire</h3>
+            <div class="meta">Allen · Attic + ceiling</div>
+          </div>
+          <span class="duration">11 days</span>
+        </div>
+      </div>
+
+      <div class="project-card c-3" data-tag="water commercial">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ ft worth restaurant ]</span></div>
+          <span class="badge">Commercial</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>Ft Worth restaurant</h3>
+            <div class="meta">Fort Worth · Kitchen flood</div>
+          </div>
+          <span class="duration">7 days</span>
+        </div>
+      </div>
+
+      <div class="project-card c-3" data-tag="storm">
+        <div class="frame">
+          <div class="ph"><span class="ph-label">[ carrollton hail ]</span></div>
+          <span class="badge">Storm</span>
+        </div>
+        <div class="info">
+          <div>
+            <h3>Carrollton hail damage</h3>
+            <div class="meta">Carrollton · Hail + interior</div>
+          </div>
+          <span class="duration">9 days</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <button class="btn btn-ghost">Load more projects
+        <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Big CTA -->
+<section class="section-paper-2">
+  <div class="container">
+    <div class="big-cta reveal" style="background: var(--ink); color: var(--paper); border-radius: var(--radius-lg); padding: clamp(48px,6vw,80px); display: grid; grid-template-columns: 1.4fr auto; gap: 40px; align-items: center;">
+      <div>
+        <h2 style="color: var(--paper);">Your home could be the next one we rebuild.</h2>
+        <p style="color: var(--body-on-dark); margin-top: 12px; font-size: 17px;">Free assessment, no obligation, no pressure. We'll tell you exactly what we'd do and what it would cost.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn-primary btn-lg">Get a free assessment</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-tag">From <em style="font-style:italic;color:var(--sand)">chaos</em><br/>to comfort.</div>
+        <div class="logo" style="color:var(--paper);">
+          <span class="logo-mark" style="background:var(--paper);color:var(--ink);">PB</span>
+          <span class="logo-text" style="color:var(--paper);">Pro Bros<small style="color:var(--sand);">Restoration · DFW</small></span>
+        </div>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#water">Water damage</a></li>
+          <li><a href="services.html#fire">Fire &amp; smoke</a></li>
+          <li><a href="services.html#mold">Mold remediation</a></li>
+          <li><a href="services.html#packout">Pack-out &amp; storage</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Reach us</h4>
+        <ul>
+          <li><a href="tel:+14695855519">(469) 585-5519</a></li>
+          <li><a href="mailto:hello@probrosrestoration.com">hello@probrosrestoration.com</a></li>
+          <li>Mon–Fri, 9a–5p<br/><span style="color:var(--sand)">24/7 for emergencies</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Pro Bros Restoration · All rights reserved</span>
+      <span>IICRC #PB-2016 · TX Reg. 4892</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
