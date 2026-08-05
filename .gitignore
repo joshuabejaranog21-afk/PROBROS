@@ -21,7 +21,6 @@ Thumbs.db
 
 # Build
 *.class
-*.jar
 *.war
 
 # Logs
