@@ -1,0 +1,6 @@
+[build]
+builder = "dockerfile"
+dockerfile = "Dockerfile"
+
+[deploy]
+startCommand = "java -jar admin/target/probros-admin-1.0.0.jar"
