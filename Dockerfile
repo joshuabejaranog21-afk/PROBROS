@@ -1,4 +1,10 @@
-FROM nginx:alpine
+FROM nginx:latest
+
+# Remove default config
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy all HTML files
 COPY *.html /usr/share/nginx/html/
@@ -7,9 +13,4 @@ COPY *.html /usr/share/nginx/html/
 COPY assets /usr/share/nginx/html/assets/
 COPY uploads /usr/share/nginx/html/uploads/
 
-# Copy Nginx config
-COPY nginx.conf /etc/nginx/nginx.conf
-
 EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
