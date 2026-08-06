@@ -7,4 +7,5 @@ RUN cd admin && mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre-alpine
 COPY --from=build /app/admin/target/probros-admin-1.0.0.jar /app/app.jar
 WORKDIR /app
+EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
