@@ -2,4 +2,4 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "cd admin && mvn spring-boot:run -DskipTests"
+startCommand = "java -jar admin/target/probros-admin-1.0.0.jar"
