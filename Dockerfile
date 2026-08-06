@@ -1,8 +1,9 @@
 FROM nginx:latest
 
-# Copy all HTML and CSS files
+# Copy all HTML, CSS, and JS files
 COPY *.html /usr/share/nginx/html/
 COPY *.css /usr/share/nginx/html/
+COPY *.js /usr/share/nginx/html/
 
 # Copy static assets and uploads
 COPY assets /usr/share/nginx/html/assets/
