@@ -8,7 +8,7 @@ Disallow: /.env
 Disallow: /*.json
 
 # Sitemap
-Sitemap: https://probrosrestoration.com/sitemap.xml
+Sitemap: https://prorestorations.net/sitemap.xml
 
 # Crawl delay for responsible crawling
 Crawl-delay: 1
