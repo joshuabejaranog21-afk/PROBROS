@@ -140,6 +140,16 @@ p{margin:0}
 .hamburger .i{width:22px;height:22px;color:var(--navy)}
 @media(max-width:1040px){.nav,.header-cta .btn-ghost{display:none}}
 @media(max-width:1040px){.hamburger{display:inline-flex}}
+/* phones: logo, call icon and menu must all fit; the full number stays in the top bar */
+@media(max-width:560px){
+  .topbar .wrap{padding:0 16px;gap:10px}
+  .topbar .tb-right{width:100%;justify-content:space-between;gap:10px}
+  .tb-247,.topbar a.tb-phone{font-size:.78rem;white-space:nowrap}
+  .header .wrap{padding:0 16px;gap:10px}
+  .brand,.hamburger{flex:none}
+  .header-cta{margin-left:auto}
+  .header-cta .btn{width:46px;height:46px;padding:0;gap:0;font-size:0;border-radius:9px}
+}
 
 /* mobile drawer */
 .drawer{position:fixed;inset:0;z-index:80;display:none}
@@ -241,13 +251,17 @@ p{margin:0}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:54px}
 .step{position:relative;padding-top:6px}
 .step .no{font-family:var(--font-d);font-weight:800;font-size:1rem;width:48px;height:48px;border-radius:12px;
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:var(--brand-bright);
+  background:#eaf2fb;border:1px solid #d5e4f4;color:var(--brand);
   display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.step h3{color:#fff;font-size:1.24rem}
-.step p{margin-top:10px;color:#b6c5d6;font-size:.98rem}
+.step h3{color:var(--t-1);font-size:1.24rem}
+.step p{margin-top:10px;color:var(--t-2);font-size:.98rem}
+/* same steps on the dark band of the home page */
+.process .step .no{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);color:var(--brand-bright)}
+.process .step h3{color:#fff}
+.process .step p{color:#b6c5d6}
 .step:not(:last-child)::after{content:"";position:absolute;top:23px;left:62px;right:-13px;height:2px;
   background:linear-gradient(90deg,rgba(46,151,222,.5),rgba(46,151,222,.05))}
-@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:36px 26px}.step::after{display:none}}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:36px 26px}.step:not(:last-child)::after{display:none}}
 @media(max-width:520px){.steps{grid-template-columns:1fr}}
 
 /* =========================================================
@@ -462,3 +476,19 @@ p{margin:0}
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease, transform .6s ease}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* =========================================================
+   PHONE FIT: nothing may force the page wider than the screen
+   ========================================================= */
+.hero .wrap>*,.why .wrap>*,.ba .wrap>*,.area .wrap>*,.faq .wrap>*,.contact .wrap>*,.ins-card>*{min-width:0}
+.contact-list li .ct{min-width:0}
+.contact-list li .ct .v{overflow-wrap:anywhere}
+@media(max-width:560px){
+  .btn{white-space:normal;text-align:center}
+  .btn-lg{padding:16px 20px;font-size:1rem}
+  /* a min-height plus an aspect-ratio forces a minimum width, so phones use the ratio alone */
+  .hero-figure .ph,.why-figure .ph{aspect-ratio:4/3;min-height:0}
+  .area-figure .ph{aspect-ratio:1/1;min-height:0}
+  /* under the photo, so it doesn't cover the crew's faces */
+  .hero-figure .badge-card{position:static;margin-top:12px}
+}
